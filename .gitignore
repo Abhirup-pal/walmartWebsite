@@ -1,0 +1,5 @@
+venv/
+walmart_data_ninjas/
+walmart/node_modules/
+walmart/backend/node_modules/
+walmart/src/Images
