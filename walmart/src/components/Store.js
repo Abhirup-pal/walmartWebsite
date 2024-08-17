@@ -3,26 +3,14 @@ import Card from "./Card";
 import images from "../Images"; // Adjust the path based on where index.js is located
 import { useState} from "react";
 import axios from "axios";
+import FilterComponent from "./Filter";
 
-const Store = () => {
-
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://localhost:8000/api/getRecommendations");
-        setCards(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData(); // Call the function here
-  }, []); // Empty dependency array means this effect runs once when the component mounts
+const Store = ({cards,queryinput,setCards}) => {
+  
 
   return (
     <div className="w-full">
+    <FilterComponent queryinput={queryinput} setCards={setCards}/>
       <div className="grid grid-cols-5 w-[70vw] gap-4 mt-4 mx-auto">
         {cards.length ? (
           cards.map((card) => {
@@ -32,7 +20,6 @@ const Store = () => {
             let num = card.article_id;
             let str2 = num.toString();
             const photo = images[str2];
-            console.log("hello");
             return (
               <Card photo={photo} title={card.prod_name} price={card.price} />
             );
